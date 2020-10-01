@@ -18,9 +18,9 @@ public class Game {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
 	@Column
-	int dice_1;
+	int dice1;
 	@Column
-	int dice_2;
+	int dice2;
 	@Column
 	boolean won;
 	
@@ -32,14 +32,16 @@ public class Game {
 	// CONSTRUCTORS
 	public Game() {}
 
-	public Game(Long id, int dice_1, int dice_2, boolean won, Player player) {
+	public Game(Long id, int dice1, int dice2, boolean won, Player player) {
 		this.id = id;
-		this.dice_1 = dice_1;
-		this.dice_2 = dice_2;
+		this.dice1 = dice1;
+		this.dice2 = dice2;
 		this.won = won;
 		this.player = player;
 	}
 
+	// GETTERS AND SETTERS
+	
 	public Long getId() {
 		return id;
 	}
@@ -48,20 +50,20 @@ public class Game {
 		this.id = id;
 	}
 
-	public int getDice_1() {
-		return dice_1;
+	public int getDice1() {
+		return dice1;
 	}
 
-	public void setDice_1(int dice_1) {
-		this.dice_1 = dice_1;
+	public void setDice1(int dice1) {
+		this.dice1 = dice1;
 	}
 
-	public int getDice_2() {
-		return dice_2;
+	public int getDice2() {
+		return dice2;
 	}
 
-	public void setDice_2(int dice_2) {
-		this.dice_2 = dice_2;
+	public void setDice2(int dice2) {
+		this.dice2 = dice2;
 	}
 
 	public boolean isWon() {
@@ -82,7 +84,7 @@ public class Game {
 
 	@Override
 	public String toString() {
-		return "Game [id=" + id + ", dice_1=" + dice_1 + ", dice_2=" + dice_2 + ", Win or Not=" + won + ", player=" + player
+		return "Game [id=" + id + ", dice1=" + dice1 + ", dice2=" + dice2 + ", Win or Not=" + won + ", player=" + player
 				+ "]";
 	}
 

@@ -22,26 +22,27 @@ public class PlayerController {
 	@Autowired
 	PlayerServiceImpl playerServiceImpl;
 	
-	// Create player
+	// CREATE PLAYER
 	@PostMapping("/players")
 	public Player createPlayer(@RequestBody Player player) {
 		return playerServiceImpl.createPlayer(player);
 	}
 
-	// Get all players with their winAvg (CHEQUEAR QUE DEVUELVA EL winAvg)
+	// GET ALL PLAYERS WITH THEIR WINAVG (CHEQUEAR QUE DEVUELVA EL winAvg)
 	@GetMapping("/players")
 	public List<Player> listPlayers() {
 		return playerServiceImpl.listPlayers();
 	}
 	
-	// PUT / players: modifica el nombre del jugador
-	// Update player name
+	// UPDATE PLAYER NAME
 	@PutMapping("/players/{id}")
 	public Player updatePlayer(@PathVariable(name = "id") Long id, @RequestBody Player player) {
 		Player playerToUpdate = playerServiceImpl.getPlayer(id);
 		playerToUpdate.setName(player.getName());
 		return playerServiceImpl.updatePlayer(playerToUpdate);
 	}
+	
+	
 
 	
 }

@@ -15,32 +15,28 @@ public class PlayerServiceImpl implements IPlayerService {
 	@Autowired
 	IPlayerDAO iPlayerDAO;
 	
-	// Create player
+	// CREATE PLAYER
 	@Override
 	public Player createPlayer(Player player) {
 		return iPlayerDAO.save(player);
 	}
 
-	// Get all players with their winAvg
+	// GET ALL PLAYERS WITH THEIR WINAVG
 	@Override
 	public List<Player> listPlayers() {
 		return iPlayerDAO.findAll();
 	}
 	
-	// Get player by id
+	// GET PLAYER BY ID
 	@Override
 	public Player getPlayer(Long id) {
 		return iPlayerDAO.findById(id).get();
 	}
 	
-	// Update player
+	// UPDATE PLAYER
 	@Override
 	public Player updatePlayer(Player player) {
 		return iPlayerDAO.save(player);
 	}
-	
-	
-
-
 
 }
