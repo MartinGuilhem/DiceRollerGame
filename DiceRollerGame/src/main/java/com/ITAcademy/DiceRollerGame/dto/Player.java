@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "player")
 public class Player {
-	
+
 	// ATTRIBUTES
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,8 +36,7 @@ public class Player {
 	@JsonIgnore // To fix issue with infinite recursion
 	private List<Game> game;
 
-		
-	// CONSTRUCTORS
+		// CONSTRUCTORS
 	public Player() {}
 
 	public Player(Long id, String name) {
@@ -45,9 +44,8 @@ public class Player {
 		this.name = addName(name);
 		this.date = new Date(System.currentTimeMillis());
 	}
-	
-	
-	//GETTERS & SETTERS
+
+		// GETTERS & SETTERS
 	public Long getId() {
 		return id;
 	}
@@ -71,76 +69,51 @@ public class Player {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
+
 	public Double getWinAvg() {
 		return winAvg;
 	}
 
 	public void setWinAvg(Double winAvg) {
-		this.winAvg = winAvg;
+		if(winAvg==null)
+			winAvg=0.00;
+		else 
+			this.winAvg = winAvg;
 	}
 
 	public List<Game> getGame() {
-	return game;
+		return game;
 	}
 
-	public void setGame(List<Game> game) {
-	this.game = game;
+	public void setGame(Game game) {
+		this.game.add(game);
 	}
-	
-	// METHODS
-	
+
+		// METHODS
+
 	// Set author as Anonymous if name is null
 	private String addName(String name) {
-		if (name == null) {
+		if (name == null)
 			name = "Anonymous";
-		}
 		return name;
-	}	
+	}
 
-//	// ROLL THE DICES: bring a player nd sets its game
-//	public void rollDices(Player player) {
-//		int dice1=(int) (Math.random()*7); 
-//		int dice2=(int) (Math.random()*7); 
-//		boolean won=won(dice1, dice2);
-//		
-//		Game game = new Game();
-//		game.setDice1(dice1);
-//		game.setDice2(dice2);
-//		game.setWon(won);
-//		game.toString();
-//		
-//		this.game.add(game);
-//		
-//		System.out.println(game.toString());
-//	}
-//	
-//	// WIN OR NOT?: returns boolean 
-//	public boolean won(int dice1, int dice2) {
-//		if(dice1+dice2==7) {
-//			System.out.println("You Win!");
-//			return true;}
-//		else {
-//			System.out.println("You Loose!");	
-//			return false;}
-//	}
-	
-//	// SETTING WINAVG FROM GAME 
-//	public void winAvGames() {
-//		int gamesWon=0;
-//		for(Game g: game)
-//		{
-//			if(g.isWon()) {
-//				gamesWon++;
-//			}
-//		}
-//		this.setWinAvg((double) gamesWon / (double) game.size());
-//	}
+	// SETTING WINAVG FROM GAME
+	public void updateWinAvGames() {
+		int gamesWon = 0;
+		for (Game g : game) {
+			if (g.isWon()) {
+				gamesWon++;
+			}
+		}
+		System.out.println("\n\n"+gamesWon+"\n\n");
+		double winAverage=(double) gamesWon / (double) game.size();
+		this.setWinAvg(winAverage);
+	}
 
 	@Override
 	public String toString() {
-		return "Player [id=" + id + ", name= " + name + ", winAvg=" + winAvg
-				+ ", entry date=" + date + "  ]";
+		return "Player [id=" + id + ", name= " + name + ", winAvg=" + winAvg + ", entry date=" + date + "  ]";
 	}
 
 }

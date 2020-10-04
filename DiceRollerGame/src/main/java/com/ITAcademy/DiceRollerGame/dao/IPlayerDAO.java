@@ -4,5 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.ITAcademy.DiceRollerGame.dto.Player;
 
 public interface IPlayerDAO extends JpaRepository<Player, Long>{
-
+	
+//	Player findById(Long id);
+	
 }

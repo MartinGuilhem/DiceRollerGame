@@ -38,5 +38,30 @@ public class PlayerServiceImpl implements IPlayerService {
 	public Player updatePlayer(Player player) {
 		return iPlayerDAO.save(player);
 	}
+	
+	// GET TOTAL RANKING OF ALL PLAYERS
+	public Double getRanking(List<Player> players) {
+		double ranking=0.00;
+		double sumRanking=0.00;
+		
+		System.out.println("\n\n\n####"+players.get(1).toString()+"\n\n\n");
+
+		for (int i=1;i<players.size();i++) {
+			ranking=players.get(i).getWinAvg();
+			System.out.println("\n\n\n####"+ranking+"\n\n\n");
+			sumRanking=sumRanking+ranking;
+		}			
+		return sumRanking/(double) players.size();
+	}
+
+	// DELETE PLAYER BY ID
+	public void deletePlayer(Long id) {
+		iPlayerDAO.deleteById(id);
+	}	
+	
+	// DELETE ALL PLAYERS
+	public void deletePlayers() {
+		iPlayerDAO.deleteAll();
+	}
 
 }

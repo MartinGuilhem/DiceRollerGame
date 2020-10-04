@@ -84,7 +84,7 @@ public class Game {
 
 	@Override
 	public String toString() {
-		return "Game [id=" + id + ", dice1=" + dice1 + ", dice2=" + dice2 + ", Win or Not=" + won + ", player=" + player
+		return "Game [id=" + id + ", dice1=" + dice1 + ", dice2=" + dice2 + ", Win?=" + won + ", player=" + player
 				+ "]";
 	}
 

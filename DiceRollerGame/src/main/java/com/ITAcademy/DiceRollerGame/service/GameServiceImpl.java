@@ -31,32 +31,32 @@ public class GameServiceImpl implements IGameService {
 		iGameDAO.deleteById(gameId);
 	}
 	
+//	 Roll the dices
+	public int rollDices(Player player) {
+		
+		int dice1=(int) (Math.random()*7); 
+		int dice2=(int) (Math.random()*7); 
+		boolean won=won(dice1, dice2);
+		Game game = new Game(null, dice1, dice2, won, player);
+		this.addGame(game);
+		player.setGame(game);
+		player.updateWinAvGames();
+		Long l=game.getId();
+		int i=l.intValue();
+		return i;
+	}
+	
+	// return boolean for win or not (won) 
+	public boolean won(int dice1, int dice2) {
+		if(dice1+dice2==7) 
+			return true;		
+		else 
+			return false;
+	}
 
-
-////	 Roll the dices
-//	public void rollDices(Player player) {
-//		
-//		int dice1=(int) (Math.random()*7	); 
-//		int dice2=(int) (Math.random()*7); 
-//		
-//		boolean won=won(dice1, dice2);
-//		
-//		Game game = new Game();
-//		game.setDice1(dice1);
-//		game.setDice2(dice2);
-//		game.setWon(won);
-//		game.toString();
-//		
-//	}
-//	
-//	// return boolean for win or not (won) 
-//	public boolean won(int dice1, int dice2) {
-//		if(dice1+dice2==7) {
-//			System.out.println("You Win!");
-//			return true;}
-//		else {
-//			System.out.println("You Loose!");	
-//			return false;}
-//	}
-//	
+	//DELETE ALL GAMES
+	public void deleteGames() {
+		iGameDAO.deleteAll();		
+	}
+	
 }
