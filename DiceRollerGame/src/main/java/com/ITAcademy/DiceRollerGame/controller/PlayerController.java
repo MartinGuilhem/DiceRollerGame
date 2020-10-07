@@ -28,13 +28,11 @@ public class PlayerController {
 	@Autowired
 	GameServiceImpl gameServiceImpl;
 	
+	
 	// CREATE PLAYER
 	@PostMapping("/players")
 	public Player createPlayer(@RequestBody Player player) {
-		
 		player.setWinAvg(0.00);
-		int i=playerServiceImpl.listPlayers().size()+1;
-		player.setId(Long.valueOf(i));
 		return playerServiceImpl.createPlayer(player);
 	}
 
@@ -52,7 +50,7 @@ public class PlayerController {
 		return playerServiceImpl.updatePlayer(playerToUpdate);
 	}
 	
-	// GET AVERAGE RANKING
+	// GET TOTAL RANKING
 	@GetMapping("/players/ranking")
 	public String getRanking() {
 		
@@ -64,7 +62,19 @@ public class PlayerController {
 		return "The total Average Ranking of All Players is: "+ranking;
 	}
 	
-	// Delete player by id
+	// GET PLAYER WITH LOWEST WINAVG
+	@GetMapping("/players/ranking/loser")
+	public Player getLoser() {
+		return playerServiceImpl.Loser();			
+	}
+	
+	// GET PLAYER WITH HIGHEST WINAVG
+	@GetMapping("/players/ranking/winner")
+	public Player getWinner() {
+		return playerServiceImpl.Winner();
+	}
+	
+	// DELETE PLAYER BY ID
 	@DeleteMapping("/players/{id}")
 	public void deletePlayer(@PathVariable(name = "id") Player player) {
 		Long id=player.getId();
@@ -76,7 +86,7 @@ public class PlayerController {
 		playerServiceImpl.deletePlayer(id);
 	}
 	
-	// Delete all players
+	// DELETE ALL PLAYERS
 	@DeleteMapping("/players/delete")
 	public void deletePlayers() {
 		gameServiceImpl.deleteGames();

@@ -49,9 +49,43 @@ public class PlayerServiceImpl implements IPlayerService {
 		for (int i=1;i<players.size();i++) {
 			ranking=players.get(i).getWinAvg();
 			System.out.println("\n\n\n####"+ranking+"\n\n\n");
-			sumRanking=sumRanking+ranking;
-		}			
-		return sumRanking/(double) players.size();
+			sumRanking = sumRanking + ranking;
+		}
+		return sumRanking / (double) players.size();
+	}
+
+	// GET PLAYER WITH LOWEST RANKING
+	public Player Loser() {
+		List<Player> players = this.listPlayers();
+		Long id = null;
+		int i = 0;
+		double min = 100.00;
+
+		for (i = 0; i < players.size(); i++) {
+			if (players.get(i).getWinAvg() < min) {
+				min = players.get(i).getWinAvg();
+				id = players.get(i).getId();
+			}
+		}
+		System.out.println("Mínimo: " + min); // SOUT test
+		return this.getPlayer(id);
+	}
+
+	// GET PLAYER WITH LOWEST RANKING
+	public Player Winner() {
+		List<Player> players = this.listPlayers();
+		Long id = null;
+		int i = 0;
+		double max = 0.00;
+
+		for (i = 0; i < players.size(); i++) {
+			if (players.get(i).getWinAvg() > max) {
+				max = players.get(i).getWinAvg();
+				id = players.get(i).getId();
+			}
+		}
+		System.out.println("Maximo: " + max); // SOUT test
+		return this.getPlayer(id);
 	}
 
 	// DELETE PLAYER BY ID

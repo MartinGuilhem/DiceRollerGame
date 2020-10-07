@@ -101,12 +101,10 @@ public class Player {
 	// SETTING WINAVG FROM GAME
 	public void updateWinAvGames() {
 		int gamesWon = 0;
-		for (Game g : game) {
-			if (g.isWon()) {
+		for (Game g : game) { 
+			if (g.isWon())
 				gamesWon++;
-			}
 		}
-		System.out.println("\n\n"+gamesWon+"\n\n");
 		double winAverage=(double) gamesWon / (double) game.size();
 		this.setWinAvg(winAverage);
 	}

@@ -28,15 +28,13 @@ public class GameController {
 	
 	// PLAYER {ID} ROLLS THE DICES (CREATE GAME)
  	@PostMapping("/players/{id}/games")
- 	public String rollTheDices(@PathVariable(name ="id") Long id) {
+ 	public Game rollTheDices(@PathVariable(name ="id") Long id) {
  		
  		Player player = playerServiceImpl.getPlayer(id);
- 		System.out.println("\n\n\n ### "+ player.toString());
- 		int gameId= gameServiceImpl.rollDices(player);
- 		playerServiceImpl.updatePlayer(player);
- 		return player.getGame().get(gameId).toString();
+ 		Long gameId=gameServiceImpl.rollDices(player);
+ 		return gameServiceImpl.getGameById(gameId);	 		
  	}
-	
+	 	
 	// GET GAMES FROM PLAYER
 	@GetMapping("/players/{id}/games")
 	public List<Game> listGames(@PathVariable(name = "id") Player player) {
@@ -50,7 +48,10 @@ public class GameController {
 		for (Game g : games) {
 			Long gameId = g.getId();
 			gameServiceImpl.deleteGame(gameId);
-		}		
+		}
+		player.setWinAvg(0.00);
+		playerServiceImpl.updatePlayer(player);	
+		
 		return "\n Games from " + player.getName() + " have been deleted";
 	}
 	

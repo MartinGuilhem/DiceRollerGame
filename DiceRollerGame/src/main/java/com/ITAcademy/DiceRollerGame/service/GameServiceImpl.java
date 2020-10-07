@@ -15,10 +15,17 @@ public class GameServiceImpl implements IGameService {
 	// Use of methods from repository DAO
 	@Autowired
 	IGameDAO iGameDAO;
+	@Autowired 
+	PlayerServiceImpl playerServiceImpl;
 
 	// Create Game
 	public Game addGame(Game game) {
 		return iGameDAO.save(game);
+	}
+	
+	// GET game By ID
+	public Game getGameById(Long gameId) {
+		return iGameDAO.findById(gameId).get();
 	}
 		
 	// Get games from player
@@ -32,18 +39,17 @@ public class GameServiceImpl implements IGameService {
 	}
 	
 //	 Roll the dices
-	public int rollDices(Player player) {
+	public Long rollDices(Player player) {
 		
-		int dice1=(int) (Math.random()*7); 
-		int dice2=(int) (Math.random()*7); 
+		int dice1=(int) (Math.random()*(6-1+1)+1); 
+		int dice2=(int) (Math.random()*(6-1+1)+1); 
 		boolean won=won(dice1, dice2);
 		Game game = new Game(null, dice1, dice2, won, player);
 		this.addGame(game);
 		player.setGame(game);
 		player.updateWinAvGames();
-		Long l=game.getId();
-		int i=l.intValue();
-		return i;
+		playerServiceImpl.updatePlayer(player);
+		return game.getId();
 	}
 	
 	// return boolean for win or not (won) 
@@ -58,5 +64,5 @@ public class GameServiceImpl implements IGameService {
 	public void deleteGames() {
 		iGameDAO.deleteAll();		
 	}
-	
+		
 }
