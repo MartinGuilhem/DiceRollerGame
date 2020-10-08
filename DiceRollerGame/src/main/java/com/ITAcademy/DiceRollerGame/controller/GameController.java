@@ -50,8 +50,7 @@ public class GameController {
 			gameServiceImpl.deleteGame(gameId);
 		}
 		player.setWinAvg(0.00);
-		playerServiceImpl.updatePlayer(player);	
-		
+		playerServiceImpl.updatePlayer(player);			
 		return "\n Games from " + player.getName() + " have been deleted";
 	}
 	

@@ -52,13 +52,11 @@ public class PlayerController {
 	
 	// GET TOTAL RANKING
 	@GetMapping("/players/ranking")
-	public String getRanking() {
-		
+	public String getRanking() {		
 		double ranking=0.00;
 		List<Player> players = new ArrayList<Player>();
 		players=this.listPlayers();
-		ranking=playerServiceImpl.getRanking(players);
-		
+		ranking=playerServiceImpl.getRanking(players);		
 		return "The total Average Ranking of All Players is: "+ranking;
 	}
 	

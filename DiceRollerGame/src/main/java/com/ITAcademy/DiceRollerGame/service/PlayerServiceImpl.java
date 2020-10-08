@@ -15,37 +15,35 @@ public class PlayerServiceImpl implements IPlayerService {
 	@Autowired
 	IPlayerDAO iPlayerDAO;
 	
-	// CREATE PLAYER
+	// Create player
 	@Override
 	public Player createPlayer(Player player) {
 		return iPlayerDAO.save(player);
 	}
 
-	// GET ALL PLAYERS WITH THEIR WINAVG
+	// Get all players with their winAvg
 	@Override
 	public List<Player> listPlayers() {
 		return iPlayerDAO.findAll();
 	}
 	
-	// GET PLAYER BY ID
+	// Get player by id
 	@Override
 	public Player getPlayer(Long id) {
 		return iPlayerDAO.findById(id).get();
 	}
 	
-	// UPDATE PLAYER
+	// Update player
 	@Override
 	public Player updatePlayer(Player player) {
 		return iPlayerDAO.save(player);
 	}
 	
-	// GET TOTAL RANKING OF ALL PLAYERS
+	// Get total ranking of all players
+	@Override
 	public Double getRanking(List<Player> players) {
 		double ranking=0.00;
 		double sumRanking=0.00;
-		
-		System.out.println("\n\n\n####"+players.get(1).toString()+"\n\n\n");
-
 		for (int i=1;i<players.size();i++) {
 			ranking=players.get(i).getWinAvg();
 			System.out.println("\n\n\n####"+ranking+"\n\n\n");
@@ -54,46 +52,45 @@ public class PlayerServiceImpl implements IPlayerService {
 		return sumRanking / (double) players.size();
 	}
 
-	// GET PLAYER WITH LOWEST RANKING
+	// Get player with lowest ranking
+	@Override
 	public Player Loser() {
 		List<Player> players = this.listPlayers();
 		Long id = null;
 		int i = 0;
 		double min = 100.00;
-
 		for (i = 0; i < players.size(); i++) {
-			if (players.get(i).getWinAvg() < min) {
+			if (players.get(i).getWinAvg() < min)
 				min = players.get(i).getWinAvg();
 				id = players.get(i).getId();
-			}
 		}
-		System.out.println("Mínimo: " + min); // SOUT test
 		return this.getPlayer(id);
 	}
 
-	// GET PLAYER WITH LOWEST RANKING
+	// Get player with highest ranking
+	@Override
 	public Player Winner() {
 		List<Player> players = this.listPlayers();
 		Long id = null;
 		int i = 0;
 		double max = 0.00;
-
 		for (i = 0; i < players.size(); i++) {
-			if (players.get(i).getWinAvg() > max) {
+			if (players.get(i).getWinAvg() > max)
 				max = players.get(i).getWinAvg();
 				id = players.get(i).getId();
-			}
 		}
 		System.out.println("Maximo: " + max); // SOUT test
 		return this.getPlayer(id);
 	}
 
-	// DELETE PLAYER BY ID
+	// Delete player by id
+	@Override
 	public void deletePlayer(Long id) {
 		iPlayerDAO.deleteById(id);
 	}	
 	
-	// DELETE ALL PLAYERS
+	// Delete all players and games
+	@Override
 	public void deletePlayers() {
 		iPlayerDAO.deleteAll();
 	}
