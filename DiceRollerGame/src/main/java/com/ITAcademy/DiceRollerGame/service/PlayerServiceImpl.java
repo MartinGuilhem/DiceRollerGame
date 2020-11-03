@@ -14,7 +14,7 @@ public class PlayerServiceImpl implements IPlayerService {
 	// Use of methods from repository DAO
 	@Autowired
 	IPlayerDAO iPlayerDAO;
-	
+
 	// Create player
 	@Override
 	public Player createPlayer(Player player) {
@@ -44,9 +44,8 @@ public class PlayerServiceImpl implements IPlayerService {
 	public Double getRanking(List<Player> players) {
 		double ranking=0.00;
 		double sumRanking=0.00;
-		for (int i=1;i<players.size();i++) {
+		for (int i=0;i<players.size();i++) {
 			ranking=players.get(i).getWinAvg();
-			System.out.println("\n\n\n####"+ranking+"\n\n\n");
 			sumRanking = sumRanking + ranking;
 		}
 		return sumRanking / (double) players.size();
@@ -72,14 +71,13 @@ public class PlayerServiceImpl implements IPlayerService {
 	public Player Winner() {
 		List<Player> players = this.listPlayers();
 		Long id = null;
-		int i = 0;
 		double max = 0.00;
-		for (i = 0; i < players.size(); i++) {
-			if (players.get(i).getWinAvg() > max)
+		for (int i=0; i<players.size();i++) {
+			if (players.get(i).getWinAvg() > max) {
 				max = players.get(i).getWinAvg();
 				id = players.get(i).getId();
+			}
 		}
-		System.out.println("Maximo: " + max); // SOUT test
 		return this.getPlayer(id);
 	}
 
