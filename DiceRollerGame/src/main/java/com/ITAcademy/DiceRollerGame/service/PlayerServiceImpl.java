@@ -72,7 +72,7 @@ public class PlayerServiceImpl implements IPlayerService {
 		List<Player> players = this.listPlayers();
 		Long id = null;
 		double max = 0.00;
-		for (int i=0; i<players.size();i++) {
+		for (int i=0;i<players.size();i++) {
 			if (players.get(i).getWinAvg() > max) {
 				max = players.get(i).getWinAvg();
 				id = players.get(i).getId();

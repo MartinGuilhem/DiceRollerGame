@@ -67,7 +67,6 @@ public class GameServiceImpl implements IGameService {
 				gamesWon++;
 		}
 		double winAverage=(double) gamesWon / (double) games.size();
-		System.out.println("gamesWon: "+gamesWon+"games.size()= "+games.size());
 		player.setWinAvg(winAverage);
 	}
 	
