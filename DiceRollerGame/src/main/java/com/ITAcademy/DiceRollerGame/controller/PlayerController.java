@@ -1,8 +1,10 @@
 package com.ITAcademy.DiceRollerGame.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,8 +39,16 @@ public class PlayerController {
 
 	// GET ALL PLAYERS WITH THEIR WINAVG
 	@GetMapping("/players")
-	public List<Player> listPlayers() {
-		return playerServiceImpl.listPlayers();
+	public ResponseEntity<Object> listPlayers(){
+		HashMap<String, Object> map = new HashMap<>();
+		try {
+			map.put("Success", true);
+			map.put("Players", playerServiceImpl.listPlayers());
+		}catch(Exception e) {
+			map.put("Success", false);
+			map.put("Players", e.getMessage());
+		}
+		return ResponseEntity.ok().body(map);
 	}
 	
 	// UPDATE PLAYER NAME
@@ -51,23 +61,45 @@ public class PlayerController {
 	
 	// GET TOTAL RANKING
 	@GetMapping("/players/ranking")
-	public String getRanking() {		
-		double ranking=0.00;
-		List<Player> players = this.listPlayers();
-		ranking=playerServiceImpl.getRanking(players);		
-		return "The total Average Ranking of All Players is: "+ranking;
+	public ResponseEntity<Object> getRanking() {
+		HashMap<String, Object> map = new HashMap<>();
+		try {
+			List<Player> players = playerServiceImpl.listPlayers();
+			map.put("Success", true);
+			map.put("The total Average Ranking of All Players is", playerServiceImpl.getRanking(players));
+		}catch(Exception e) {
+			map.put("Success", false);
+			map.put("Players", e.getMessage());			
+		}				
+		return ResponseEntity.ok().body(map);
 	}
 	
 	// GET PLAYER WITH LOWEST WINAVG
 	@GetMapping("/players/ranking/loser")
-	public Player getLoser() {
-		return playerServiceImpl.Loser();			
+	public ResponseEntity<Object> getLoser() {
+		HashMap<String, Object> map = new HashMap<>();		
+		try {
+			map.put("Success", true);
+			map.put("Loser", playerServiceImpl.Loser());
+		}catch(Exception e) {
+			map.put("Success", false);
+			map.put("Players", e.getMessage());			
+		}		
+		return ResponseEntity.ok().body(map);			
 	}
 	
 	// GET PLAYER WITH HIGHEST WINAVG
 	@GetMapping("/players/ranking/winner")
-	public Player getWinner() {
-		return playerServiceImpl.Winner();
+	public ResponseEntity<Object> getWinner() {
+		HashMap<String, Object> map = new HashMap<>();		
+		try {
+			map.put("Success", true);
+			map.put("Winner", playerServiceImpl.Winner());
+		}catch(Exception e) {
+			map.put("Success", false);
+			map.put("Players", e.getMessage());			
+		}		
+		return ResponseEntity.ok().body(map);
 	}
 	
 	// DELETE PLAYER BY ID
@@ -88,5 +120,4 @@ public class PlayerController {
 		gameServiceImpl.deleteGames();
 		playerServiceImpl.deletePlayers();
 	}
-	
 }

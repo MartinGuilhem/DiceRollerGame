@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ITAcademy.DiceRollerGame.dao.IPlayerDAO;
 import com.ITAcademy.DiceRollerGame.dto.Player;
+import com.ITAcademy.DiceRollerGame.repository.IPlayerDAO;
 
 @Service
 public class PlayerServiceImpl implements IPlayerService {

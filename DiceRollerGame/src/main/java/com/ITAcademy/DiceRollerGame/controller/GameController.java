@@ -8,11 +8,13 @@ import com.ITAcademy.DiceRollerGame.dto.Player;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -36,8 +38,15 @@ public class GameController {
 	 	
 	// GET GAMES FROM PLAYER
 	@GetMapping("/players/{id}/games")
-	public List<Game> listGames(@PathVariable(name = "id") Player player) {
-		return gameServiceImpl.listGames(player);
+	public ResponseEntity<Object> listGames(@PathVariable(name = "id") Player player) {
+		HashMap<String, Object> map = new HashMap<>();		
+		try {
+			map.put("Games", gameServiceImpl.listGames(player));
+		}catch(Exception e) {
+			map.put("Success", false);
+			map.put("Players", e.getMessage());			
+		}		
+		return ResponseEntity.ok().body(map);
 	}
 	
 	// DELETE ALL GAMES FROM PLAYER
