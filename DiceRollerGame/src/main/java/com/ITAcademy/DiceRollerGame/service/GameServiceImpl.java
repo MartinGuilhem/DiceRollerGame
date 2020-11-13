@@ -12,34 +12,34 @@ import com.ITAcademy.DiceRollerGame.repository.IGameRepository;
 @Service
 public class GameServiceImpl implements IGameService {
 
-	// Use of methods from repository DAO
+	// Use of methods from repository Repository
 	@Autowired
-	IGameRepository iGameDAO;
+	IGameRepository iGameRepository;
 	@Autowired 
 	PlayerServiceImpl playerServiceImpl;
 
 	// Create Game
 	@Override
 	public Game addGame(Game game) {
-		return iGameDAO.save(game);
+		return iGameRepository.save(game);
 	}
 	
 	// GET game By ID
 	@Override
 	public Game getGameById(Long gameId) {
-		return iGameDAO.findById(gameId).get();
+		return iGameRepository.findById(gameId).get();
 	}
 		
 	// Get games from player
 	@Override
 	public List<Game> listGames(Player player) {
-		return iGameDAO.findAllByPlayer(player);
+		return iGameRepository.findAllByPlayer(player);
 	}
 
 	// Delete Game
 	@Override
 	public void deleteGame(Long gameId) {
-		iGameDAO.deleteById(gameId);
+		iGameRepository.deleteById(gameId);
 	}
 	
 	// Roll the dices
@@ -82,6 +82,6 @@ public class GameServiceImpl implements IGameService {
 	// Delete all games
 	@Override
 	public void deleteGames() {
-		iGameDAO.deleteAll();		
+		iGameRepository.deleteAll();		
 	}
 }

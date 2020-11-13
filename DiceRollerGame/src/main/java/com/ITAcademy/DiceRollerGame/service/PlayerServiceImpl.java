@@ -11,32 +11,32 @@ import com.ITAcademy.DiceRollerGame.repository.IPlayerRepository;
 @Service
 public class PlayerServiceImpl implements IPlayerService {
 	
-	// Use of methods from repository DAO
+	// Use of methods from repository Repository
 	@Autowired
-	IPlayerRepository iPlayerDAO;
+	IPlayerRepository iPlayerRepository;
 
 	// Create player
 	@Override
 	public Player createPlayer(Player player) {
-		return iPlayerDAO.save(player);
+		return iPlayerRepository.save(player);
 	}
 
 	// Get all players with their winAvg
 	@Override
 	public List<Player> listPlayers() {
-		return iPlayerDAO.findAll();
+		return iPlayerRepository.findAll();
 	}
 	
 	// Get player by id
 	@Override
 	public Player getPlayer(Long id) {
-		return iPlayerDAO.findById(id).get();
+		return iPlayerRepository.findById(id).get();
 	}
 	
 	// Update player
 	@Override
 	public Player updatePlayer(Player player) {
-		return iPlayerDAO.save(player);
+		return iPlayerRepository.save(player);
 	}
 	
 	// Get total ranking of all players
@@ -84,13 +84,13 @@ public class PlayerServiceImpl implements IPlayerService {
 	// Delete player by id
 	@Override
 	public void deletePlayer(Long id) {
-		iPlayerDAO.deleteById(id);
+		iPlayerRepository.deleteById(id);
 	}	
 	
 	// Delete all players and games
 	@Override
 	public void deletePlayers() {
-		iPlayerDAO.deleteAll();
+		iPlayerRepository.deleteAll();
 	}
 
 }
