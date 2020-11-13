@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ITAcademy.DiceRollerGame.dto.Player;
-import com.ITAcademy.DiceRollerGame.repository.IPlayerDAO;
+import com.ITAcademy.DiceRollerGame.repository.IPlayerRepository;
 
 @Service
 public class PlayerServiceImpl implements IPlayerService {
 	
 	// Use of methods from repository DAO
 	@Autowired
-	IPlayerDAO iPlayerDAO;
+	IPlayerRepository iPlayerDAO;
 
 	// Create player
 	@Override

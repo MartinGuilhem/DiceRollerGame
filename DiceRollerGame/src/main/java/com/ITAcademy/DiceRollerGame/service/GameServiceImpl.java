@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 
 import com.ITAcademy.DiceRollerGame.dto.Game;
 import com.ITAcademy.DiceRollerGame.dto.Player;
-import com.ITAcademy.DiceRollerGame.repository.IGameDAO;
+import com.ITAcademy.DiceRollerGame.repository.IGameRepository;
 
 @Service
 public class GameServiceImpl implements IGameService {
 
 	// Use of methods from repository DAO
 	@Autowired
-	IGameDAO iGameDAO;
+	IGameRepository iGameDAO;
 	@Autowired 
 	PlayerServiceImpl playerServiceImpl;
 
